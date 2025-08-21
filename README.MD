@@ -20,7 +20,7 @@ A FastAPI-based recommendation system that provides Discogs recommendations, alo
 #### Quick Start
 1. Clone the repository:
 ```bash
-git clone <repo-url>
+git clone https://github.com/justinpakzad/discogs-rec-api
 ```
 
 2. Choose your setup option:
