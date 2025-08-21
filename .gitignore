@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+*.pyo
+*.ipynb
+.ipynb_checkpoints/
+.pytest_cache/
+.DS_Store
+notebooks/
+.python-version
+ml/data
+.ruff_cache

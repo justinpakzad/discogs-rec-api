@@ -1,0 +1,60 @@
+services:
+  setup:
+    build: .
+    volumes:
+      - ./discogs_rec_api:/app/discogs_rec_api
+      - ./ml:/app/ml 
+      - ./migrations:/app/migrations
+    command: ["python", "setup_scripts/main.py"]
+    depends_on:
+      - db
+
+  discogs_rec_api:
+    build: .
+    ports:
+      - 8000:8000
+    volumes:
+      - ./discogs_rec_api:/app/discogs_rec_api
+      - ./ml:/app/ml 
+      - ./migrations:/app/migrations
+    command: ["uvicorn", "discogs_rec_api.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+    depends_on:
+      - db
+      
+  db:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=discogs_rec
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  db_test:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=discogs_rec_test
+    volumes:
+      - postgres_test_data:/var/lib/postgresql/data
+    ports:
+      - 5433:5432
+  tests:
+    build: .
+    command: ["pytest","-vv"]
+    volumes:
+      - ./tests:/app/tests
+      - ./ml:/app/ml 
+    depends_on:
+      - db_test
+    environment:
+        TESTING: "true"
+volumes:
+  postgres_data:
+  postgres_test_data:
+
+
+
