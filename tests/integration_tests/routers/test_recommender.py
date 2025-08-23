@@ -16,6 +16,9 @@ async def test_recommend_records_no_user(client, urls):
     response_data = response.json()
     assert "recommendations" in response_data
     assert len(response_data.get("recommendations")) == 5
+    assert all(
+        rec.get("url") != urls[0] for rec in response_data.get("recommendations")
+    )
 
 
 @pytest.mark.asyncio
@@ -65,6 +68,7 @@ async def test_recommend_records_batch_no_user(client, urls):
     assert response.status_code == 200
     assert len(response_data) == 2
     for rec in response_data:
+        assert all(r.get("url") not in urls for r in rec.get("recommendations"))
         assert rec.get("input_data").get("release_id") in {335130, 926397}
         assert len(rec.get("recommendations")) == 5
         assert len(rec.get("recommendations")) == 5
