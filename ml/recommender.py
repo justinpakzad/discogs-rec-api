@@ -93,7 +93,7 @@ def get_n_nearest_recs(url: str, n_recs: int = 5):
         )
         seen_artists.add(artist)
         seen_labels.add(label)
-        if len(seen_artists) >= n_recs:
+        if len(recs) >= n_recs:
             break
 
     return recs
