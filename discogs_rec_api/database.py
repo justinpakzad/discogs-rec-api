@@ -27,7 +27,6 @@ def create_async_session(async_engine):
 
 
 settings = Config()
-# global instances
 async_engine = create_engine(settings.database_url)
 async_session = create_async_session(async_engine)
 
@@ -41,10 +40,3 @@ async def get_db() -> AsyncGenerator[AsyncSession, None]:
     """
     async with async_session() as session:
         yield session
-
-
-# async def create_tables():
-#     """Create all database tables from SQLAlchemy models."""
-#     async with async_engine.begin() as conn:
-#         await conn.run_sync(Base.metadata.drop_all)
-#         # await conn.run_sync(Base.metadata.create_all)
