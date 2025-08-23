@@ -54,7 +54,7 @@ def get_n_nearest_recs(url: str, n_recs: int = 5):
         n_recs: Number of recommendations to return (default: 5)
 
     Returns:
-        list[dict]: List of recommendations with artist, title, and URL
+        list[dict]: List of recommendations
 
     Raises:
         InvalidURL: If URL format is invalid
@@ -63,34 +63,57 @@ def get_n_nearest_recs(url: str, n_recs: int = 5):
     valid_url = validate_url(url)
     if not valid_url:
         raise InvalidURL("Invalid URL")
-    release_id = extract_release_id(url)
-    indices = get_nearest_indices(release_id=release_id, n_recs=n_recs)
+    input_release_id = extract_release_id(url)
+    indices = get_nearest_indices(release_id=input_release_id, n_recs=n_recs)
     if not indices:
         raise ReleaseNotInModelError(
-            f"Sorry, release id {release_id} is out of the scope of our model!"
+            f"Sorry, release id {input_release_id} is out of the scope of our model!"
         )
     seen_artists = set()
+    seen_labels = set()
     recs = []
-    for i, idx in enumerate(indices[1:], start=1):
+    for idx in indices:
         release_metadata = mappings.get("idx_to_release_info").get(idx)
-        artist = release_metadata.get("artist_name")
+        artist = release_metadata.get("artist_name").strip().lower()
+        label = release_metadata.get("label_name").strip().lower()
         release_id = release_metadata.get("release_id")
         url = f"https://www.discogs.com/release/{release_id}"
-        if artist in seen_artists:
+        if (
+            artist in seen_artists
+            or label in seen_labels
+            or input_release_id == release_id
+        ):
             continue
+
         recs.append(
             {
                 "url": url,
                 **release_metadata,
             }
         )
-        seen_artists.add(artist.strip().lower())
-        if i >= n_recs:
+        seen_artists.add(artist)
+        seen_labels.add(label)
+        if len(seen_artists) >= n_recs:
             break
+
     return recs
 
 
 def get_n_nearest_recs_batch(urls: str, n_recs: int = 5) -> list[dict]:
+    """
+    Processes multiple Discogs release URLs and returns recommendations for each.
+
+    Args:
+        urls: List of Discogs release URLs to process
+        n_recs: Number of recommendations to return per URL (default: 5)
+
+    Returns:
+        list[dict]: List of recommendations
+
+    Raises:
+        InvalidURL: If any URL format is invalid
+        ReleaseNotInModelError: If any release is not in the recommendation model
+    """
     result = []
     for url in urls:
         recs = {
@@ -99,11 +122,3 @@ def get_n_nearest_recs_batch(urls: str, n_recs: int = 5) -> list[dict]:
         }
         result.append(recs)
     return result
-
-
-if __name__ == "__main__":
-    initialize()
-    res = get_n_nearest_recs(
-        "https://www.discogs.com/release/335130-FL-Untitled",
-        5,
-    )

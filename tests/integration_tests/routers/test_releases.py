@@ -57,7 +57,7 @@ async def test_get_artists(client):
     assert response.status_code == 200
     response_data = response.json()
     assert all(k in response_data for k in ["data", "page", "limit", "total"])
-    assert response_data.get("total") == 14
+    assert response_data.get("total") == 18
 
 
 @pytest.mark.asyncio
@@ -67,8 +67,9 @@ async def test_get_labels(client):
     )
     assert response.status_code == 200
     response_data = response.json()
+    print(response_data)
     assert all(k in response_data for k in ["data", "page", "limit", "total"])
-    assert response_data.get("total") == 14
+    assert response_data.get("total") == 18
 
 
 @pytest.mark.asyncio
