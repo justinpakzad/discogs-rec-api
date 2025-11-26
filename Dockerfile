@@ -17,5 +17,6 @@ COPY migrations ./migrations
 COPY setup_scripts ./setup_scripts
 COPY ml ./ml
 COPY tests ./tests
+COPY streamlit ./streamlit
 
 CMD ["python", "discogs_rec_api/main.py"]
