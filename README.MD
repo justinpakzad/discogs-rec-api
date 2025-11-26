@@ -220,6 +220,10 @@ docker compose up streamlit -d
 
 ![alt text](assets/streamlit_preview.png)
 
+## Entity Relationship Diagram
+![alt text](assets/erd.png)
+
+
 ## Model Information
 Genres supported:
 - Electronic 
