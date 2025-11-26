@@ -20,7 +20,17 @@ services:
     command: ["uvicorn", "discogs_rec_api.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
     depends_on:
       - db
-      
+  
+  streamlit:
+      build: .
+      ports:
+        - 8501:8501
+      volumes:
+        - ./streamlit:/app/streamlit
+      command: ["streamlit", "run", "streamlit/app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+      depends_on:
+        - discogs_rec_api
+            
   db:
     image: postgres:16-alpine
     environment:

@@ -211,9 +211,14 @@ Complete endpoint documentation with request/response schemas is available at:
 - http://localhost:8000/redoc
 - http://localhost:8000/docs
 
-## Entity Relationship Diagram
-![alt text](assets/erd.png)
 
+## Streamlit App
+I built a mini streamlit app which can be used to get recommendations via a UI. The app is very basic and does not include many of the features available directly via the API. To start streamlit run:
+```bash
+docker compose up streamlit -d
+```
+
+![alt text](assets/streamlit_preview.png)
 
 ## Model Information
 Genres supported:
