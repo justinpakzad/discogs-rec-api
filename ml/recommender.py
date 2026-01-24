@@ -1,3 +1,4 @@
+from cachetools import LRUCache
 from ml.utils import (
     load_annoy_index,
     load_mappings,
@@ -9,6 +10,8 @@ from discogs_rec_api.exceptions import InvalidURL, ReleaseNotInModelError
 # variables to store loaded models
 mappings = None
 annoy_index = None
+
+recs_cache = LRUCache(maxsize=500)
 
 
 def initialize() -> None:
@@ -64,6 +67,9 @@ def get_n_nearest_recs(url: str, n_recs: int = 5):
     if not valid_url:
         raise InvalidURL("Invalid URL")
     input_release_id = extract_release_id(url)
+    cache_key = f"{input_release_id}:{n_recs}"
+    if cache_key in recs_cache:
+        return recs_cache[cache_key]
     indices = get_nearest_indices(release_id=input_release_id, n_recs=n_recs)
     if not indices:
         raise ReleaseNotInModelError(
@@ -95,7 +101,7 @@ def get_n_nearest_recs(url: str, n_recs: int = 5):
         seen_labels.add(label)
         if len(recs) >= n_recs:
             break
-
+    recs_cache[cache_key] = recs
     return recs
 
 
