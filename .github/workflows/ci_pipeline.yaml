@@ -24,7 +24,7 @@ jobs:
       uses: astral-sh/setup-uv@v7
   
     - name: Install dependencies
-      run: uv sync --frozen --group dev
+      run: uv pip install ruff
     
     - name: Ruff linting
       run: uv run ruff check . --exclude migrations
