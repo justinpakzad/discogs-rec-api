@@ -9,24 +9,25 @@ on:
 
 
 jobs:
-
   lint:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     
-    - name: Python setup
-      uses: actions/setup-python@v5
+    - name: "Set up Python"
+      uses: actions/setup-python@v6
       with:
-        python-version: '3.12'
-    
-    - name: Install Ruff
-      run: pip install ruff
+        python-version-file: "pyproject.toml"
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v7
+  
+    - name: Install dependencies
+      run: uv sync --locked --only-dev
     
     - name: Ruff linting
-      run: ruff check . --exclude migrations
+      run: uv run --no-sync ruff check . --exclude migrations
      
   run_tests:
     runs-on: ubuntu-latest
