@@ -9,3 +9,4 @@ notebooks/
 .python-version
 ml/data
 .ruff_cache
+.venv

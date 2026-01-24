@@ -22,30 +22,24 @@ async def main():
     data_path = ml_path / "data"
     Path(data_path).mkdir(exist_ok=True, parents=True)
 
-    # download and unzip data
     download_files(path=data_path, minimal=args.minimal, ci=args.ci)
     if not args.minimal:
         unzip_data(path=ml_path, ci=args.ci)
 
-    # delete cache from hf
     hf_cache_path = ml_path / "data" / ".cache"
     shutil.rmtree(hf_cache_path)
 
-    # for ci pipeline exit out
     if args.ci:
         return
 
-    # reset alembic and grab latest updates
     reset_alembic()
-    # load releases table
+
     csv_path = ml_path / "data" / "releases.csv"
 
     load_release_from_csv(csv_path=csv_path)
 
-    # delete csv (not needed as its loaded to db)
     csv_path.unlink()
 
-    # create a super user
     test_superuser = UserCreate(
         username="superuser",
         email="super@super.com",
