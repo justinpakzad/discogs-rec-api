@@ -64,7 +64,6 @@ def unzip_data(path: Path, ci: bool = False) -> None:
     zip_path = path / "data" / f"{file_type}.zip"
     with ZipFile(zip_path, "r") as zip_object:
         for item in zip_object.namelist():
-            print(item)
             if item in files_to_extract:
                 zip_object.extract(item, path)
 
