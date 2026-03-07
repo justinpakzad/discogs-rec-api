@@ -49,6 +49,7 @@ class Releases(Base):
     )
     artist_name: Mapped[str] = mapped_column(String(), nullable=False)
     styles: Mapped[list[str] | None] = mapped_column(ARRAY(String), nullable=True)
+    video_urls: Mapped[list[str] | None] = mapped_column(ARRAY(String), nullable=True)
     release_title: Mapped[str] = mapped_column(String(), nullable=False)
     country: Mapped[str | None] = mapped_column(String(), nullable=True)
     catno: Mapped[str | None] = mapped_column(String(), nullable=True)

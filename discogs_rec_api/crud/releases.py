@@ -77,6 +77,7 @@ class ReleasesCRUD(BaseCRUD):
             self.model.low,
             self.model.median,
             self.model.high,
+            self.model.video_urls
         ).where(self.model.id == int(release_id))
         result = await self._execute_query(query=query, db=db, return_scalar=False)
 
@@ -114,6 +115,7 @@ class ReleasesCRUD(BaseCRUD):
             self.model.low,
             self.model.median,
             self.model.high,
+            self.model.video_urls
         )
         count_query = select(func.count(self.model.id))
         page = filters.pop("page")

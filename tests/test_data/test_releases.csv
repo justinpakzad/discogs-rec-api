@@ -1,19 +1,19 @@
-id,artist_name,styles,release_title,country,catno,label_name,release_year,want,have,want_to_have_ratio,video_count,low,median,high
-1164470,Auditiv Experience,"{IDM,Techno,Ambient}",Cosmic Trip,Belgium,Resonance 003,Resonance (5),1993,324.0,18.0,18.0,9.0,0.0,0.0,27.45
-519591,F.L.,{Techno},Untitled,Belgium,Resonance 002,Resonance (5),1992,930.0,58.0,16.034,2.0,10.87,43.48,166.65
-335130,F.L.,"{Downtempo,House}",Untitled,Belgium,Resonance 001,Resonance (5),1992,965.0,203.0,4.754,5.0,37.18,48.91,81.52
-127580,Subversiv' Effigies,"{House,Downtempo}",Strictly Unreal,Belgium,GC 43,Global Cuts,1997,80.0,50.0,1.6,0.0,0.5,5.28,8.45
-2132373,Van Chung,"{House,Downtempo}",Electric Flying,Belgium,917 013-1,Smash Productions,1993,17.0,21.0,0.81,6.0,2.05,4.12,5.49
-731782,DJ 4T4,"{Downtempo,House}",Last Nite / It's Just Begun,Belgium,Swet 7,Swet,2006,45.0,131.0,0.344,7.0,1.29,5.42,12.26
-618792,Jack LeHit And The Sample Minds,"{Downtempo,House}",The Haunted House Of Soul,Belgium,SHM 128915,Sound Of Belgium,1989,28.0,38.0,0.737,1.0,2.19,5.38,7.69
-38842,Common Factor,"{Downtempo,House}",Motion Transition EP,Belgium,SSR 198,SSR (4),1998,111.0,138.0,0.804,2.0,1.28,3.85,13.19
-926397,Daily Air Cargo / Pacific Deliveries,"{Techno,Trance}",Anywhere Anytime Anything / Envelope To Elephants / Door To Door Service,Italy,JP ROKAS-01,J.P. Rokas,1992,680.0,102.0,6.667,4.0,0.0,0.0,86.96
-1186064,Libe,"{Techno,Trance}",Wonderful Trip,Italy,NT 003,Noise Art,2000,27.0,27.0,1.0,1.0,2.17,4.89,10.87
-1332433,Various,"{Techno,Trance}",Technomania,Italy,LP 556,Discomagic Records,1991,19.0,54.0,0.352,2.0,0.75,3.75,11.96
-1473036,Emotions (2),"{Techno,Trance}",Jump To The Sky,Italy,QUICK 023,Quick,1999,31.0,29.0,1.069,2.0,0.86,3.85,7.79
-1473041,Jenny Hall,"{Trance,Techno}",Infinity,Italy,QUICK 022,Quick,1999,41.0,25.0,1.64,4.0,2.19,3.32,7.58
-1473861,Konovox,"{Trance,Techno}",Take Me Baby,Italy,QUICK 015,Quick,1999,31.0,25.0,1.24,0.0,1.08,2.2,4.4
-712258,Sweet Coffee,"{Downtempo,House}",Keep On Running (Remixes),Belgium,541416 501536,541,2006,40.0,146.0,0.274,2.0,2.17,5.43,13.04
-1185803,Channel 11,"{Trance,Techno}",The Kiss,Italy,NT 002,Noise Art,2000,35.0,43.0,0.814,2.0,4.35,8.53,32.6
-872317,Atahualpa,"{Techno,Trance}",Ritmo Andino,Italy,DFC 57702,DFC,1990,104.0,198.0,0.525,8.0,2.07,5.43,10.43
-121804,Paolo Visnadi,"{Trance,Techno}",Hunt's Up,Italy,UMM 067,UMM,1992,330.0,227.0,1.454,7.0,4.89,9.78,32.61
+id,artist_name,styles,release_title,country,catno,label_name,release_year,want,have,want_to_have_ratio,video_count,low,median,high,video_urls
+121804,Paolo Visnadi,"{Trance,Techno}",Hunt's Up,Italy,UMM 067,UMM,1992,330.0,227.0,1.454,7.0,4.89,9.78,32.61,"{https://www.youtube.com/watch?v=IXxVI6R8gro,https://www.youtube.com/watch?v=nC7Mfgmxdfw,https://www.youtube.com/watch?v=78nb5B4KYQ8,https://www.youtube.com/watch?v=Bk0eehJm4gg,https://www.youtube.com/watch?v=kNi5baBFwGc,https://www.youtube.com/watch?v=LYysSDKVdgE,https://www.youtube.com/watch?v=_iNj80bEjqE}"
+38842,Common Factor,"{Downtempo,House}",Motion Transition EP,Belgium,SSR 198,SSR (4),1998,111.0,138.0,0.804,2.0,1.28,3.85,13.19,"{https://www.youtube.com/watch?v=sxdjqnKLEeo,https://www.youtube.com/watch?v=4qinu6Aqbeo}"
+127580,Subversiv' Effigies,"{House,Downtempo}",Strictly Unreal,Belgium,GC 43,Global Cuts,1997,80.0,50.0,1.6,0.0,0.5,5.28,8.45,
+1185803,Channel 11,"{Trance,Techno}",The Kiss,Italy,NT 002,Noise Art,2000,35.0,43.0,0.814,2.0,4.35,8.53,32.6,"{https://www.youtube.com/watch?v=jGO_TMt16jc,https://www.youtube.com/watch?v=PfjqiVHAX0k}"
+731782,DJ 4T4,"{Downtempo,House}",Last Nite / It's Just Begun,Belgium,Swet 7,Swet,2006,45.0,131.0,0.344,7.0,1.29,5.42,12.26,"{https://www.youtube.com/watch?v=qoS9g-OIGsI,https://www.youtube.com/watch?v=M7-tqyh-IrU,https://www.youtube.com/watch?v=7KgSbxIoaDc,https://www.youtube.com/watch?v=WfceJEgWAyA,https://www.youtube.com/watch?v=nkKbetlhgj8,https://www.youtube.com/watch?v=BK2U5ziV_Z8,https://www.youtube.com/watch?v=Cf0d-Q3v1a4}"
+335130,F.L.,"{Downtempo,House}",Untitled,Belgium,Resonance 001,Resonance (5),1992,965.0,203.0,4.754,5.0,37.18,48.91,81.52,"{https://www.youtube.com/watch?v=LX-G5hRUVN8,https://www.youtube.com/watch?v=q83Mqq6emNE,https://www.youtube.com/watch?v=eOxc7HLeEes,https://www.youtube.com/watch?v=XnR9P4nr32w,https://www.youtube.com/watch?v=6rPrKiBmHcc}"
+519591,F.L.,{Techno},Untitled,Belgium,Resonance 002,Resonance (5),1992,930.0,58.0,16.034,2.0,10.87,43.48,166.65,"{https://www.youtube.com/watch?v=QnnlNEb7BQU,https://www.youtube.com/watch?v=iBeuHgvI5hc}"
+1473041,Jenny Hall,"{Trance,Techno}",Infinity,Italy,QUICK 022,Quick,1999,41.0,25.0,1.64,4.0,2.19,3.32,7.58,"{https://www.youtube.com/watch?v=-gad0JW3LOs,https://www.youtube.com/watch?v=MOUO_JDDw2c,https://www.youtube.com/watch?v=wZk-tHZS500,https://www.youtube.com/watch?v=4IgqYzlYiWk}"
+2132373,Van Chung,"{House,Downtempo}",Electric Flying,Belgium,917 013-1,Smash Productions,1993,17.0,21.0,0.81,6.0,2.05,4.12,5.49,"{https://www.youtube.com/watch?v=kD6t-N1DkK4,https://www.youtube.com/watch?v=Kjs9rKXpJtA,https://www.youtube.com/watch?v=cO_6CjsqMRY,https://www.youtube.com/watch?v=I3mz8vOoJ6A,https://www.youtube.com/watch?v=qeX-xDqyKSI,https://www.youtube.com/watch?v=aaGy99iZGWE}"
+618792,Jack LeHit And The Sample Minds,"{Downtempo,House}",The Haunted House Of Soul,Belgium,SHM 128915,Sound Of Belgium,1989,28.0,38.0,0.737,1.0,2.19,5.38,7.69,{https://www.youtube.com/watch?v=zM5wYu5bCFM}
+872317,Atahualpa,"{Techno,Trance}",Ritmo Andino,Italy,DFC 57702,DFC,1990,104.0,198.0,0.525,8.0,2.07,5.43,10.43,"{https://www.youtube.com/watch?v=wmrHo1P6ph8,https://www.youtube.com/watch?v=fU_1-6PRuqI,https://www.youtube.com/watch?v=rAGsfSHlGtI,https://www.youtube.com/watch?v=_OXHAOte8qA,https://www.youtube.com/watch?v=Ib-NH8EfZs0,https://www.youtube.com/watch?v=ti9JlTRFiGM,https://www.youtube.com/watch?v=LH-5YcGVzD8,https://www.youtube.com/watch?v=tQ39dsCp74U}"
+712258,Sweet Coffee,"{Downtempo,House}",Keep On Running (Remixes),Belgium,541416 501536,541,2006,40.0,146.0,0.274,2.0,2.17,5.43,13.04,"{https://www.youtube.com/watch?v=-jYZb7qd0VY,https://www.youtube.com/watch?v=-UH-mp60mpM}"
+1332433,Various,"{Techno,Trance}",Technomania,Italy,LP 556,Discomagic Records,1991,19.0,54.0,0.352,2.0,0.75,3.75,11.96,"{https://www.youtube.com/watch?v=5_503EjsDP4,https://www.youtube.com/watch?v=Cdjn7mVUYPE}"
+1186064,Libe,"{Techno,Trance}",Wonderful Trip,Italy,NT 003,Noise Art,2000,27.0,27.0,1.0,1.0,2.17,4.89,10.87,{https://www.youtube.com/watch?v=VFE6iruUP4w}
+926397,Daily Air Cargo / Pacific Deliveries,"{Techno,Trance}",Anywhere Anytime Anything / Envelope To Elephants / Door To Door Service,Italy,JP ROKAS-01,J.P. Rokas,1992,680.0,102.0,6.667,4.0,0.0,0.0,86.96,"{https://www.youtube.com/watch?v=KD2xaPbb1Rs,https://www.youtube.com/watch?v=3PogtX4zZEk,https://www.youtube.com/watch?v=xqMLGMC3EQ4,https://www.youtube.com/watch?v=vRyJIHbQifw}"
+1164470,Auditiv Experience,"{IDM,Techno,Ambient}",Cosmic Trip,Belgium,Resonance 003,Resonance (5),1993,324.0,18.0,18.0,9.0,0.0,0.0,27.45,"{https://www.youtube.com/watch?v=QWmh86drANU,https://www.youtube.com/watch?v=EAI2nBXrTlE,https://www.youtube.com/watch?v=ZpPOS2V-UDE,https://www.youtube.com/watch?v=0xnFsKqkRZ0,https://www.youtube.com/watch?v=UTju3JQJbEs,https://www.youtube.com/watch?v=MuGAD2RpPZ8,https://www.youtube.com/watch?v=d6A0jm-kDQk,https://www.youtube.com/watch?v=sc08qOHz_v8,https://www.youtube.com/watch?v=SJfZv7FchpM}"
+1473036,Emotions (2),"{Techno,Trance}",Jump To The Sky,Italy,QUICK 023,Quick,1999,31.0,29.0,1.069,2.0,0.86,3.85,7.79,"{https://www.youtube.com/watch?v=8q09ylXfJcY,https://www.youtube.com/watch?v=gQHpbMueCeE}"
+1473861,Konovox,"{Trance,Techno}",Take Me Baby,Italy,QUICK 015,Quick,1999,31.0,25.0,1.24,0.0,1.08,2.2,4.4,

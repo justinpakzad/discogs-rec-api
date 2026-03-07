@@ -11,7 +11,25 @@ async def test_get_release_by_id(
     assert response.status_code == 200
     response_data = response.json()
     assert response_data.get("id") == 926397
-    assert len(response_data.keys()) == 15
+    expected_keys = {
+        "id",
+        "artist_name",
+        "styles",
+        "release_title",
+        "country",
+        "catno",
+        "label_name",
+        "release_year",
+        "want",
+        "have",
+        "want_to_have_ratio",
+        "video_count",
+        "low",
+        "median",
+        "high",
+        "video_urls",
+    }
+    assert set(response_data.keys()) == expected_keys
 
 
 @pytest.mark.asyncio
@@ -34,6 +52,27 @@ async def test_get_release(client):
     assert country[0] == "Belgium"
     for item in response_data.get("data"):
         assert any(v in styles for v in item.get("styles"))
+
+    expected_keys = {
+        "id",
+        "artist_name",
+        "styles",
+        "release_title",
+        "country",
+        "catno",
+        "label_name",
+        "release_year",
+        "want",
+        "have",
+        "want_to_have_ratio",
+        "video_count",
+        "low",
+        "median",
+        "high",
+        "video_urls",
+    }
+    print(response_data.get("data")[0])
+    assert set(response_data.get("data")[0].keys()) == expected_keys
 
 
 @pytest.mark.asyncio
