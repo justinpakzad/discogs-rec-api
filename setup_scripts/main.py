@@ -1,6 +1,6 @@
 import argparse
-import asyncio
 import shutil
+import asyncio
 from pathlib import Path
 from setup_scripts.utils import (
     download_files,
@@ -27,7 +27,12 @@ async def main():
         unzip_data(path=ml_path, ci=args.ci)
 
     hf_cache_path = ml_path / "data" / ".cache"
-    shutil.rmtree(hf_cache_path)
+
+    if hf_cache_path.exists():
+        if hf_cache_path.is_file():
+            hf_cache_path.unlink()
+        else:
+            shutil.rmtree(hf_cache_path)
 
     if args.ci:
         return
@@ -35,7 +40,6 @@ async def main():
     reset_alembic()
 
     csv_path = ml_path / "data" / "releases.csv"
-
     load_release_from_csv(csv_path=csv_path)
 
     csv_path.unlink()
