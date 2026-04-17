@@ -4,12 +4,12 @@ from discogs_rec_api.schemas import UserCreate
 from discogs_rec_api.models import Users
 from discogs_rec_api.security import get_password_hash, verify_password
 from discogs_rec_api.exceptions import UserNotFound, UserAlreadyExists
-from discogs_rec_api.crud.base import BaseCRUD
+from discogs_rec_api.repositories.base import BaseRepository
 
 
-class UserCRUD(BaseCRUD):
+class UserRepository(BaseRepository):
     """
-    CRUD operations for User entities.
+    Operations for User entities.
 
     Provides methods for creating, reading, updating, and deleting users
     from the database. Handles password hashing and user authentication.

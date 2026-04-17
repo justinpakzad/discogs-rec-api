@@ -1,9 +1,13 @@
 from fastapi import APIRouter
 from fastapi import status, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
-from discogs_rec_api.dependencies import get_current_active_user, get_db, feedback_crud
+from discogs_rec_api.dependencies import (
+    get_current_active_user,
+    get_db,
+    feedback_repository,
+)
 from discogs_rec_api.models import Users
-from discogs_rec_api.crud.feedback import FeedbackCRUD
+from discogs_rec_api.repositories.feedback import FeedbackRepository
 from discogs_rec_api.schemas import FeedbackRequest, FeedbackResponse
 from discogs_rec_api.exceptions import FeedbackAlreadyExists, SearchIdNotFound
 
@@ -24,10 +28,10 @@ async def submit_feedback(
     search_id: int,
     current_user: Users = Depends(get_current_active_user),
     db: AsyncSession = Depends(get_db),
-    feedback_crud: FeedbackCRUD = Depends(feedback_crud),
+    feedback_repository: FeedbackRepository = Depends(feedback_repository),
 ):
     try:
-        result = await feedback_crud.write_feedback(
+        result = await feedback_repository.write_feedback(
             user_id=current_user.id, search_id=search_id, user_feedback=request, db=db
         )
         return result
@@ -47,10 +51,10 @@ async def get_feedback_by_id(
     search_id: int,
     current_user: Users = Depends(get_current_active_user),
     db: AsyncSession = Depends(get_db),
-    feedback_crud: FeedbackCRUD = Depends(feedback_crud),
+    feedback_repository: FeedbackRepository = Depends(feedback_repository),
 ):
     try:
-        result = await feedback_crud.get_feedback_by_search_id(
+        result = await feedback_repository.get_feedback_by_search_id(
             user_id=current_user.id, search_id=search_id, db=db
         )
         return result
@@ -68,9 +72,9 @@ async def get_feedback(
     limit: int = 25,
     current_user: Users = Depends(get_current_active_user),
     db: AsyncSession = Depends(get_db),
-    feedback_crud: FeedbackCRUD = Depends(feedback_crud),
+    feedback_repository: FeedbackRepository = Depends(feedback_repository),
 ):
-    result = await feedback_crud.get_feedback(
+    result = await feedback_repository.get_feedback(
         user_id=current_user.id, page=page, limit=limit, db=db
     )
     return result

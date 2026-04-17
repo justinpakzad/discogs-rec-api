@@ -2,12 +2,12 @@ from typing import Any
 from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 from discogs_rec_api.models import Searches, Releases
-from discogs_rec_api.crud.base import BaseCRUD
+from discogs_rec_api.repositories.base import BaseRepository
 
 
-class SearchCRUD(BaseCRUD):
+class SearchRepository(BaseRepository):
     """
-    CRUD operations for Search entities.
+    Operations for Search entities.
 
     Provides methods for creating and reading user searches
     from the database.

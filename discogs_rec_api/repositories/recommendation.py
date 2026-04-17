@@ -1,12 +1,12 @@
 from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 from discogs_rec_api.models import Recommendations, Searches, Releases
-from discogs_rec_api.crud.base import BaseCRUD
+from discogs_rec_api.repositories.base import BaseRepository
 
 
-class RecommendationCRUD(BaseCRUD):
+class RecommendationRepository(BaseRepository):
     """
-    CRUD operations for Recommendation entities.
+    Pperations for Recommendation entities.
 
     Provides methods for creating and reading user recommendations
     from the database.

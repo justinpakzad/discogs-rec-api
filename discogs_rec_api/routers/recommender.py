@@ -13,8 +13,8 @@ from ml.recommender import get_n_nearest_recs, get_n_nearest_recs_batch
 from ml.utils import extract_release_id
 from discogs_rec_api.exceptions import InvalidURL, ReleaseNotInModelError
 from discogs_rec_api.dependencies import get_current_user_optional, get_db
-from discogs_rec_api.crud.recommendation import RecommendationCRUD
-from discogs_rec_api.crud.search import SearchCRUD
+from discogs_rec_api.repositories.recommendation import RecommendationRepository
+from discogs_rec_api.repositories.search import SearchRepository
 from discogs_rec_api.models import Users
 
 router = APIRouter(prefix="/recommend", tags=["recommender"])
@@ -45,8 +45,8 @@ async def write_searches_and_recommendations(
     Returns:
         None: Data is persisted to database
     """
-    recs_crud = RecommendationCRUD()
-    search_crud = SearchCRUD()
+    recs_crud = RecommendationRepository()
+    search_crud = SearchRepository()
 
     if not is_batch:
         mapping = [{extract_release_id(request.url): recs}]

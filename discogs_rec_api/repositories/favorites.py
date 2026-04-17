@@ -2,12 +2,12 @@ from sqlalchemy import select, delete, func
 from sqlalchemy.ext.asyncio import AsyncSession
 from discogs_rec_api.models import Favorites, Releases
 from discogs_rec_api.exceptions import FavoriteAlreadyExists, ReleaseNotInFavorites
-from discogs_rec_api.crud.base import BaseCRUD
+from discogs_rec_api.repositories.base import BaseRepository
 
 
-class FavoritesCRUD(BaseCRUD):
+class FavoritesRepository(BaseRepository):
     """
-    CRUD operations for Favorites entities.
+    Operations for Favorites entities.
 
     Provides methods for creating, reading, and deleting user favorites
     from the database.

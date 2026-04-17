@@ -1,6 +1,10 @@
 from fastapi import APIRouter
 from fastapi import status, Depends, HTTPException
-from discogs_rec_api.dependencies import get_current_active_user, user_crud, get_db
+from discogs_rec_api.dependencies import (
+    get_current_active_user,
+    user_repository,
+    get_db,
+)
 from discogs_rec_api.schemas import UserResponse
 from discogs_rec_api.models import Users
 from discogs_rec_api.exceptions import UserNotFound
@@ -42,10 +46,10 @@ async def read_users_me(
 )
 async def delete_user_me(
     current_user: Users = Depends(get_current_active_user),
-    user_crud=Depends(user_crud),
+    user_repository=Depends(user_repository),
     db=Depends(get_db),
 ):
     try:
-        await user_crud.delete_user(db=db, user_id=current_user.id)
+        await user_repository.delete_user(db=db, user_id=current_user.id)
     except UserNotFound as e:
         raise HTTPException(status_code=404, detail=str(e))
