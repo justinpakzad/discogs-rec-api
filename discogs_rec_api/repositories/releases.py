@@ -4,7 +4,7 @@ from discogs_rec_api.models import (
     Releases,
 )
 from discogs_rec_api.exceptions import ReleaseNotFound
-from discogs_rec_api.crud.base import BaseCRUD
+from discogs_rec_api.repositories.base import BaseRepository
 
 FILTER_MAPPINGS = {
     "artist_name": lambda query, value: query.where(
@@ -35,9 +35,9 @@ FILTER_MAPPINGS = {
 }
 
 
-class ReleasesCRUD(BaseCRUD):
+class ReleasesRepository(BaseRepository):
     """
-    CRUD operations for Releases entities.
+    Operations for Releases entities.
 
     Provides methods for reading and querying music release records
     from the database with various filtering options.

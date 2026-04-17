@@ -5,12 +5,12 @@ from discogs_rec_api.exceptions import (
     SearchIdNotFound,
     FeedbackAlreadyExists,
 )
-from discogs_rec_api.crud.base import BaseCRUD
+from discogs_rec_api.repositories.base import BaseRepository
 
 
-class FeedbackCRUD(BaseCRUD):
+class FeedbackRepository(BaseRepository):
     """
-    CRUD operations for Feedback entities.
+    Operations for Feedback entities.
 
     Provides methods for creating, reading, updating, and deleting
     user feedback from the database.

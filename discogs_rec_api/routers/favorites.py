@@ -4,11 +4,11 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from discogs_rec_api.dependencies import (
     get_current_active_user,
     get_db,
-    favorites_crud,
+    favorites_repository,
 )
 from discogs_rec_api.exceptions import ReleaseNotInFavorites, FavoriteAlreadyExists
 from discogs_rec_api.models import Users
-from discogs_rec_api.crud.favorites import FavoritesCRUD
+from discogs_rec_api.repositories.favorites import FavoritesRepository
 
 router = APIRouter(prefix="/user/me/favorites", tags=["favorites"])
 
@@ -25,7 +25,7 @@ async def add_to_user_favorites(
     release_id: str,
     current_user: Users = Depends(get_current_active_user),
     db: AsyncSession = Depends(get_db),
-    favorites_crud: FavoritesCRUD = Depends(favorites_crud),
+    favorites_repository: FavoritesRepository = Depends(favorites_repository),
 ):
     """
     Add a release to the current user's favorites list.
@@ -34,7 +34,7 @@ async def add_to_user_favorites(
         release_id: ID of the release to add to favorites
         current_user: Current authenticated user dependency
         db: Database session dependency
-        favorites_crud: Favorites CRUD operations dependency
+        favorites_repository: Favorites CRUD operations dependency
 
     Returns:
         Favorites: The created favorite record
@@ -43,7 +43,7 @@ async def add_to_user_favorites(
         HTTPException: 401 if user is not authenticated, 409 if release is already in favorites
     """
     try:
-        result = await favorites_crud.add_to_favorites(
+        result = await favorites_repository.add_to_favorites(
             user_id=current_user.id, release_id=release_id, db=db
         )
     except FavoriteAlreadyExists as e:
@@ -63,7 +63,7 @@ async def remove_user_favorite(
     release_id: str,
     current_user: Users = Depends(get_current_active_user),
     db: AsyncSession = Depends(get_db),
-    favorites_crud: FavoritesCRUD = Depends(favorites_crud),
+    favorites_repository: FavoritesRepository = Depends(favorites_repository),
 ):
     """
     Remove a release from the current user's favorites list.
@@ -72,13 +72,13 @@ async def remove_user_favorite(
         release_id: ID of the release to remove from favorites
         current_user: Current authenticated user dependency
         db: Database session dependency
-        favorites_crud: Favorites CRUD operations dependency
+        favorites_repository: Favorites CRUD operations dependency
 
     Raises:
         HTTPException: 401 if user is not authenticated, 404 if release is not in favorites
     """
     try:
-        await favorites_crud.remove_from_favorites(
+        await favorites_repository.remove_from_favorites(
             user_id=current_user.id, release_id=release_id, db=db
         )
     except ReleaseNotInFavorites as e:
@@ -93,7 +93,7 @@ async def remove_user_favorite(
 async def get_user_favorites(
     current_user: Users = Depends(get_current_active_user),
     db: AsyncSession = Depends(get_db),
-    favorites_crud: FavoritesCRUD = Depends(favorites_crud),
+    favorites_repository: FavoritesRepository = Depends(favorites_repository),
     page: int = Query(1, ge=1),
     limit: int = Query(25, ge=1, le=500),
 ) -> dict:
@@ -103,7 +103,7 @@ async def get_user_favorites(
     Args:
         current_user: Current authenticated user dependency
         db: Database session dependency
-        favorites_crud: Favorites CRUD operations dependency
+        favorites_repository: Favorites CRUD operations dependency
         page: Page number for pagination (default: 1)
         limit: Number of items per page (default: 25)
 
@@ -113,7 +113,7 @@ async def get_user_favorites(
     Raises:
         HTTPException: 401 if user is not authenticated
     """
-    result = await favorites_crud.get_favorites(
+    result = await favorites_repository.get_favorites(
         user_id=current_user.id, db=db, page=page, limit=limit
     )
     return result

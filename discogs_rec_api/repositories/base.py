@@ -4,12 +4,12 @@ from sqlalchemy import Select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 
-class BaseCRUD(ABC):
+class BaseRepository(ABC):
     """
-    Base CRUD class with common pagination and query execution functionality.
+    Base Repository class with common pagination and query execution functionality.
 
     Provides reusable methods for database operations that are commonly used
-    across different CRUD classes, including pagination, query execution,
+    across different repoisotry classes, including pagination, query execution,
     and result formatting.
     """
 

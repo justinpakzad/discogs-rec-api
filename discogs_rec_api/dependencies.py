@@ -6,76 +6,76 @@ from jose import jwt, JWTError
 
 from discogs_rec_api.database import get_db
 from discogs_rec_api.security import oauth2_scheme, optional_oauth2_scheme
-from discogs_rec_api.crud.user import UserCRUD
-from discogs_rec_api.crud.search import SearchCRUD
-from discogs_rec_api.crud.recommendation import RecommendationCRUD
-from discogs_rec_api.crud.releases import ReleasesCRUD
-from discogs_rec_api.crud.favorites import FavoritesCRUD
-from discogs_rec_api.crud.feedback import FeedbackCRUD
+from discogs_rec_api.repositories.user import UserRepository
+from discogs_rec_api.repositories.search import SearchRepository
+from discogs_rec_api.repositories.recommendation import RecommendationRepository
+from discogs_rec_api.repositories.releases import ReleasesRepository
+from discogs_rec_api.repositories.favorites import FavoritesRepository
+from discogs_rec_api.repositories.feedback import FeedbackRepository
 from discogs_rec_api.config import Config
 from discogs_rec_api.schemas import UserResponse, UserAdminResponse
 
 settings = Config()
 
 
-async def user_crud() -> UserCRUD:
+async def user_repository() -> UserRepository:
     """
-    Dependency for a UserCRUD instance.
+    Dependency for a UserRepository instance.
 
     Returns:
-        UserCRUD: Instance of UserCRUD for database operations
+        UserRepository: Instance of UserRepository for database operations
     """
-    return UserCRUD()
+    return UserRepository()
 
 
-async def favorites_crud() -> FavoritesCRUD:
+async def favorites_repository() -> FavoritesRepository:
     """
-    Dependency for a FavoritesCRUD instance.
+    Dependency for a FavoritesRepository instance.
 
     Returns:
-        FavoritesCRUD: Instance of FavoritesCRUD for database operations
+        FavoritesRepository: Instance of FavoritesRepository for database operations
     """
-    return FavoritesCRUD()
+    return FavoritesRepository()
 
 
-async def recommendations_crud() -> RecommendationCRUD:
+async def recommendations_repository() -> RecommendationRepository:
     """
-    Dependency for a RecommendationCRUD instance.
+    Dependency for a RecommendationRepository instance.
 
     Returns:
-        RecommendationCRUD: Instance of RecommendationCRUD for database operations
+        RecommendationRepository: Instance of RecommendationRepository for database operations
     """
-    return RecommendationCRUD()
+    return RecommendationRepository()
 
 
-async def search_crud() -> SearchCRUD:
+async def search_repository() -> SearchRepository:
     """
-    Dependency for a SearchCRUD instance.
+    Dependency for a SearchRepository instance.
 
     Returns:
-        SearchCRUD: Instance of SearchCRUD for database operations
+        SearchRepository: Instance of SearchRepository for database operations
     """
-    return SearchCRUD()
+    return SearchRepository()
 
 
-async def releases_crud() -> ReleasesCRUD:
+async def releases_repository() -> ReleasesRepository:
     """
-    Dependency for a ReleasesCRUD instance.
+    Dependency for a ReleasesRepository instance.
 
     Returns:
-        ReleasesCRUD: Instance of ReleasesCRUD for database operations
+        ReleasesRepository: Instance of ReleasesRepository for database operations
     """
-    return ReleasesCRUD()
+    return ReleasesRepository()
 
 
-async def feedback_crud() -> FeedbackCRUD:
+async def feedback_repository() -> FeedbackRepository:
     """
-    Dependency for a FeedbackCRUD instance.
+    Dependency for a FeedbackRepository instance.
 
     Returns:
-        FeedbackCRUD: Instance of FeedbackCRUD for database operations
+        FeedbackRepository: Instance of FeedbackRepository for database operations
     """
-    return FeedbackCRUD()
+    return FeedbackRepository()
 
 
 async def validate_token_and_get_user(token: str, db: AsyncSession):
@@ -112,7 +112,7 @@ async def validate_token_and_get_user(token: str, db: AsyncSession):
             raise credentials_exception
     except JWTError:
         raise credentials_exception
-    user = await UserCRUD().get_user(identifier="username", value=username, db=db)
+    user = await UserRepository().get_user(identifier="username", value=username, db=db)
     if user is None:
         raise credentials_exception
     return user

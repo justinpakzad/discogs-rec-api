@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from discogs_rec_api.dependencies import (
     get_db,
-    user_crud,
+    user_repository,
 )
 from discogs_rec_api.schemas import (
     UserCreate,
@@ -31,7 +31,7 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 async def register_user(
     user: UserCreate,
     db: AsyncSession = Depends(get_db),
-    user_crud=Depends(user_crud),
+    user_repository=Depends(user_repository),
 ):
     """
     Register a new user in the system.
@@ -39,7 +39,7 @@ async def register_user(
     Args:
         user: User registration data (username, email, password)
         db: Database session dependency
-        user_crud: User CRUD operations dependency
+        user_repository: User CRUD operations dependency
 
     Returns:
         UserResponse: Created user data (without password)
@@ -49,7 +49,7 @@ async def register_user(
     """
 
     try:
-        user = await user_crud.create_user(db=db, user=user)
+        user = await user_repository.create_user(db=db, user=user)
         return user
     except UserAlreadyExists as e:
         raise HTTPException(status_code=409, detail=(str(e)))
@@ -65,7 +65,7 @@ async def register_user(
 async def login_for_access_token(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
     db: AsyncSession = Depends(get_db),
-    user_crud=Depends(user_crud),
+    user_repository=Depends(user_repository),
 ):
     """
     Authenticate user and return JWT access token.
@@ -73,7 +73,7 @@ async def login_for_access_token(
     Args:
         form_data: OAuth2 form containing username and password
         db: Database session dependency
-        user_crud: User CRUD operations dependency
+        user_repository: User CRUD operations dependency
 
     Returns:
         Token: JWT access token and token type
@@ -82,7 +82,7 @@ async def login_for_access_token(
         HTTPException: 401 if authentication fails
     """
     try:
-        user = await user_crud.authenticate_user(
+        user = await user_repository.authenticate_user(
             db=db, username=form_data.username, password=form_data.password
         )
         access_token = create_access_token(data={"sub": user.username})

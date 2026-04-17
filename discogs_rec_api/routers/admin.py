@@ -2,8 +2,8 @@ import uuid
 from fastapi import APIRouter, Query
 from fastapi import HTTPException, status, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
-from discogs_rec_api.dependencies import get_db, get_admin_user, user_crud
-from discogs_rec_api.crud.user import UserCRUD
+from discogs_rec_api.dependencies import get_db, get_admin_user, user_repository
+from discogs_rec_api.repositories.user import UserRepository
 from discogs_rec_api.exceptions import UserNotFound
 
 
@@ -22,7 +22,7 @@ async def get_users_admin(
     limit: int = Query(25, ge=1, le=500),
     db: AsyncSession = Depends(get_db),
     admin_user=Depends(get_admin_user),
-    user_crud=Depends(user_crud),
+    user_repository=Depends(user_repository),
 ):
     """
     Retrieve a paginated list of all users (admin only).
@@ -32,7 +32,7 @@ async def get_users_admin(
         limit: Maximum number of users to return (default: 25)
         db: Database session dependency
         admin_user: Admin user authentication dependency
-        user_crud: User CRUD operations dependency
+        user_repository: User CRUD operations dependency
 
     Returns:
         AdminListUsers: List of users and total count
@@ -40,7 +40,7 @@ async def get_users_admin(
     Raises:
         HTTPException: 403 if user is not an admin
     """
-    users = await user_crud.list_all_users(db=db, page=page, limit=limit)
+    users = await user_repository.list_all_users(db=db, page=page, limit=limit)
     return users
 
 
@@ -56,7 +56,7 @@ async def get_user_admin(
     user_id: uuid.UUID,
     db: AsyncSession = Depends(get_db),
     admin_user=Depends(get_admin_user),
-    user_crud: UserCRUD = Depends(user_crud),
+    user_repository: UserRepository = Depends(user_repository),
 ):
     """
     Retrieve detailed information about a specific user (admin only).
@@ -65,7 +65,7 @@ async def get_user_admin(
         user_id: UUID of the user to retrieve
         db: Database session dependency
         admin_user: Admin user authentication dependency
-        user_crud: User CRUD operations dependency
+        user_repository: User CRUD operations dependency
 
     Returns:
         UserResponse: User information
@@ -74,7 +74,7 @@ async def get_user_admin(
         HTTPException: 403 if user is not an admin, 404 if user not found
     """
     try:
-        user = await user_crud.get_user(db=db, identifier="id", value=user_id)
+        user = await user_repository.get_user(db=db, identifier="id", value=user_id)
         return user
     except UserNotFound as e:
         raise HTTPException(status_code=404, detail=str(e))
@@ -92,7 +92,7 @@ async def update_user_status(
     user_id: uuid.UUID,
     db: AsyncSession = Depends(get_db),
     admin_user=Depends(get_admin_user),
-    user_crud: UserCRUD = Depends(user_crud),
+    user_repository: UserRepository = Depends(user_repository),
     action: str = "deactivate",
 ):
     """
@@ -102,7 +102,7 @@ async def update_user_status(
         user_id: UUID of the user to update
         db: Database session dependency
         admin_user: Admin user authentication dependency
-        user_crud: User CRUD operations dependency
+        user_repository: User CRUD operations dependency
         action: Action to perform ("deactivate" or "activate")
 
     Returns:
@@ -112,7 +112,9 @@ async def update_user_status(
         HTTPException: 403 if user is not an admin, 404 if user not found
     """
     try:
-        user = await user_crud.update_user_status(db=db, user_id=user_id, action=action)
+        user = await user_repository.update_user_status(
+            db=db, user_id=user_id, action=action
+        )
     except UserNotFound as e:
         raise HTTPException(status_code=404, detail=str(e))
     return user
@@ -130,7 +132,7 @@ async def promote_to_superuser(
     user_id: uuid.UUID,
     db: AsyncSession = Depends(get_db),
     admin_user=Depends(get_admin_user),
-    user_crud: UserCRUD = Depends(user_crud),
+    user_repository: UserRepository = Depends(user_repository),
     action: str = "promote",
 ):
     """
@@ -140,7 +142,7 @@ async def promote_to_superuser(
         user_id: UUID of the user to update
         db: Database session dependency
         admin_user: Admin user authentication dependency
-        user_crud: User CRUD operations dependency
+        user_repository: User CRUD operations dependency
         action: Action to perform ("promote" or "demote")
 
     Returns:
@@ -151,7 +153,7 @@ async def promote_to_superuser(
     """
 
     try:
-        user = await user_crud.update_user_privilege(
+        user = await user_repository.update_user_privilege(
             db=db, user_id=user_id, action=action
         )
         return user
@@ -171,7 +173,7 @@ async def delete_user(
     user_id: uuid.UUID,
     db: AsyncSession = Depends(get_db),
     admin_user=Depends(get_admin_user),
-    user_crud: UserCRUD = Depends(user_crud),
+    user_repository: UserRepository = Depends(user_repository),
 ):
     """
     Delete a user permanently.
@@ -180,7 +182,7 @@ async def delete_user(
         user_id: UUID of the user to delete
         db: Database session dependency
         admin_user: Admin user authentication dependency
-        user_crud: User CRUD operations dependency
+        user_repository: User CRUD operations dependency
 
     Returns:
         None: 204 No Content on successful deletion
@@ -189,7 +191,7 @@ async def delete_user(
         HTTPException: 403 if user is not an admin, 404 if user not found
     """
     try:
-        row_count = await user_crud.delete_user(db=db, user_id=user_id)
+        row_count = await user_repository.delete_user(db=db, user_id=user_id)
         return row_count
     except UserNotFound as e:
         raise HTTPException(status_code=404, detail=str(e))
